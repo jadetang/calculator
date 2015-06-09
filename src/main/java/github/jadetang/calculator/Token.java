@@ -17,7 +17,7 @@ public class Token {
         MULTI("*"),
         DIVISION("/"),
         INT("integer"),
-        FLOW("flow"),
+        //FLOW("flow"),
         LPAREN("("),
         RPAREN(")"),
         EOF("end of file");
@@ -28,6 +28,8 @@ public class Token {
             this.desc = desc;
         }
     }
+
+    public static final Token EOF = new Token(TokenType.EOF,"EOF");
 
 
 
@@ -47,6 +49,16 @@ public class Token {
         this.type = type;
         this.value = value;
     }
+
+    public TokenType type(){
+        return type;
+    }
+
+    public String value(){
+        return value;
+    }
+
+
 
 
 }

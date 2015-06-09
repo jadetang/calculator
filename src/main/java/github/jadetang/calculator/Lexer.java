@@ -62,10 +62,10 @@ public class Lexer {
                     return scanNumber();
                 case '(':
                     advance();
-                    return new Token(LPAREN,"(");
+                    return new Token(LPAREN, "(");
                 case ')':
                     advance();
-                    return new Token(RPAREN,")");
+                    return new Token(RPAREN, ")");
                 case EOF:
                     return new Token(Token.TokenType.EOF, "end of file");
                 default:
@@ -76,35 +76,25 @@ public class Lexer {
 
     private Token scanNumber() {
         StringBuilder sb = new StringBuilder(10);
-        if(ch == '.'){
+        if (ch == '.') {
             sb.append("0");
         }
         while (isDigit(ch)) {
             sb.append(ch);
             advance();
         }
-        if (sb.indexOf(".") > -1) {
-            try {
-                Double d = Double.parseDouble(sb.toString());
-            } catch (NumberFormatException n) {
-                throw new IllegalArgumentException(sb.toString() + " is not valid flow number");
-            }
-            return new Token(FLOW, sb.toString());
-        }else {
-            try {
-                Integer integer = Integer.parseInt(sb.toString());
-            }catch (NumberFormatException n) {
-                throw new IllegalArgumentException(sb.toString() + " is not valid integer number");
-            }
-            return new Token(INT, sb.toString());
+        try {
+            Integer integer = Integer.parseInt(sb.toString());
+        } catch (NumberFormatException n) {
+            throw new IllegalArgumentException(sb.toString() + " is not valid integer number");
         }
+        return new Token(INT, sb.toString());
+
     }
 
     private boolean isDigit(char ch) {
         return ch >= '0' && ch <= '9' || ch == '.';
     }
-
-
 
 
     //return current character and move the pos a step ahead
